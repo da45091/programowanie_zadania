@@ -1,36 +1,101 @@
 #include <iostream>
-#include <math.h>
+#include <cstdlib>
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
 
 using namespace std;
 
-void NewLine()
+bool IsSorted(int *tab, int s)
 {
-    cout << " " << endl;
+    for(int i=1;i<=s;i++)
+    {
+        if(tab[i]>tab[i+1])
+        {
+            return 0;
+        }
+    }
+    return 1;
 }
 
-void NewLines(int x)
+void printBackwards(int *tab, int s)
 {
-    for(int i=0;i<x;i++)
+    for(int i=s-1;i>=0;i--)
     {
-        cout << " " << endl;
+        cout << tab[i] << endl;
     }
 }
 
-int WriteBiggerNumber(int x, int y)
+void printDots(int *tab, int s)
 {
-    if(x>y)
+    for(int i=0;i<s;i++)
     {
-        cout << x << endl;
+        for(int x=0;x<tab[i];x++)
+        {
+            cout << ".";
+        }
+        cout << endl;
+    }
+}
+
+int Sum(int *tab, int s)
+{
+    int suma = 0;
+    for(int i=0;i<s;i++)
+    {
+        suma=suma+tab[i];
+    }
+    cout << "Suma elementow tablicy wynosi: " << suma << endl;
+}
+
+int getLength(char *str)
+{
+    int i=0;
+    while(str[i] != '\0')
+    {
+        i++;
+    }
+    return i;
+}
+
+void Reverse (char *str)
+{
+    for(int i=getLength(str);i>=0;i--)
+    {
+        cout << str[i];
+    }
+}
+
+bool containsDigits(char * str)
+{
+    for(int i=0;i<getLength(str);i++)
+    {
+        if(isdigit(str[i]))
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+bool AreArraysldentical(int * a1, int s1, int * a2, int s2)
+{
+    if(s1==s2)
+    {
+        for(int i=0;i<s1;i++)
+        {
+            cout << i << " element tablicy a1 jest rowny " << i << " elementowi tablicy a2" << endl;
+        }
     }
     else
     {
-        cout << y << endl;
+        cout << "Podane tablice nie sa identyczne" << endl;
     }
 }
 
-int Multiply(int x, int y)
+char *reverseString(char *s)
 {
-    return x * y;
+
 }
 
 int main()
@@ -38,380 +103,364 @@ int main()
     int warunek = 1;
     while(warunek != 0)
     {
-        int zadanie;
+        int zadanie = 1;
         cout << "Podaj numer zadania ";
         cin >> zadanie;
         switch(zadanie)
         {
-            //1.1. Zadeklarowaæ zmienne typu int, float, char. Przypisaæ do nich wartoœæ, wyœwietliæ je na ekran.
+            //1.1. UtworzyÃ¦ 5-cio elementowÂ¹ tablicÃª typu int. PobraÃ¦ od uÂ¿ytkownika 5 elementÃ³w i dodac je do tablicy. NastÃªpnie wyÅ“wietliÃ¦ najwiÃªkszÂ¹ liczbÃª z tablicy.
             case 1:
             {
-                int a = 7;
-                float b = 7.13;
-                char c = 'c';
+                int tab[5];
+                cout << "Podaj 5 elementow tablicy: " << endl;
+                cin >> tab[0];
+                cin >> tab[1];
+                cin >> tab[2];
+                cin >> tab[3];
+                cin >> tab[4];
 
-                cout << "Zmienna a typu int wynosi " << a << endl;
-                cout << "Zmienna b typu float wynosi " << b << endl;
-                cout << "Zmienna c typu char wynosi " << c << endl << endl;
+                int x = tab[0];
+                for(int i=1;i<=sizeof(tab[5]);i++)
+                {
+                    if(x < tab[i])
+                    {
+                        x = tab[i];
+                    }
+                }
+                cout << "Najwieksza liczba z podanych to: " << x << endl;
                 break;
             }
-            //1.2. Wyœwietliæ zmienn¹ typu int na ekran. Nale¿y u¿yæ metody printf i konstrukcji %d
+            //1.2. WyÅ“wietliÃ¦ w pÃªtli tablice z zadania 1.1 od poczÂ¹tku i od koÃ±ca
             case 2:
             {
-                int x = 1;
-                cout << x << endl;
+                int tab[5];
+                cout << "Podaj 5 elementow tablicy: " << endl;
+                cin >> tab[0];
+                cin >> tab[1];
+                cin >> tab[2];
+                cin >> tab[3];
+                cin >> tab[4];
+
+                cout << "Podana tablica od poczatku: " << endl;
+                for(int i=0;i<=sizeof(tab[5]);i++)
+                {
+                    cout << tab[i] << endl;
+                }
+
+                cout << "Podana tablica od konca: " << endl;
+                for(int i=4;i<=sizeof(tab[5]);i--)
+                {
+                    cout << tab[i] << endl;
+                }
                 break;
             }
-            //1.3. Pobraæ od u¿ytkownika liczbê x. Wyœwietliæ kwadrat liczby x.
+            //NapisaÃ¦ algorytm sprawdzajacy, czy tablica jest posortowana w kolejnoÅ“ci niemalejÂ¹cej
             case 3:
             {
-                float x;
-                cout << "Podaj liczbe: ";
-                cin >> x;
-                int wynik = x*x;
-                cout << "Podana liczba podniesiona do kwadratu wynosi: " << wynik << endl << endl;
+                int tab[5];
+                cout << "Podaj 5 elementow tablicy: " << endl;
+                cin >> tab[0];
+                cin >> tab[1];
+                cin >> tab[2];
+                cin >> tab[3];
+                cin >> tab[4];
+
+                int x;
+                for(int i=1;i<=sizeof(tab[5]);i++)
+                {
+                    if(tab[i]>tab[i+1])
+                    {
+                        x=1;
+                    }
+                }
+                if(x==1)
+                {
+                    cout << "Tablica nie jest niemalejaca" << endl;
+                }
+                else
+                {
+                     cout << "Tablica jest niemalejaca" << endl;
+                }
                 break;
             }
-            //1.4. Zapoznaæ siê z instrukcjami warunkowymi (if, else if, else oraz switch). Pobraæ od u¿ywkownika liczbê i wyœwietliæ informacjê, czy jest ona: mniejsza, wiêksza, czy równa 0.
+            //2.1. UtworzyÃ¦ osobnÂ¹ metodÃª bool IsSorted(int *, int) realizujÂ¹cÂ¹ zadanie 1.3 (UWAGA - w jÃªzyku C niedostÃªpny jest typ bool z wartoÅ“ciami true i false, zamiast niego naleÂ¿y uÂ¿yÃ¦ int i wartoÅ“ci 1 i 0)
             case 4:
             {
-                float x;
-                cout << "Podaj liczbe: ";
-                cin >> x;
-                if(x>0)
+                int tab[5];
+                cout << "Podaj 5 elementow tablicy: " << endl;
+                cin >> tab[0];
+                cin >> tab[1];
+                cin >> tab[2];
+                cin >> tab[3];
+                cin >> tab[4];
+
+                if(IsSorted(tab,sizeof(tab[5])))
                 {
-                    cout << "Podana liczba jest wieksza od 0" << endl << endl;
-                }
-                else if(x<0)
-                {
-                    cout << "Podana liczba jest mniejsza od 0" << endl << endl;
+                    cout << "Tablica jest niemalejaca" << endl;
                 }
                 else
                 {
-                    cout << "Podana liczba jest rowna 0" << endl << endl;
+                     cout << "Tablica nie jest niemalejaca" << endl;
                 }
                 break;
             }
-            //1.5. Pobraæ ud u¿ytkownika 3 liczby (x1, x2, x3). Wyœwietliæ informacjê, która z tych liczb jest najwiêksza.
+            //2.2. UtworzyÃ¦ metodÃª void printBackwards(int *a, int s) sÂ³uÂ¿Â¹cÂ¹ do wypisania tablicy OD KOÃ‘CA
             case 5:
             {
-                int a, b, c;
-                cout << "Podaj pierwsza liczbe: " << endl;
-                cin >> a;
-                cout << "Podaj druga liczbe: " << endl;
-                cin >> b;
-                cout << "Podaj trzecia liczbe: " << endl;
-                cin >> c;
+                int tab[5];
+                cout << "Podaj 5 elementow tablicy: " << endl;
+                cin >> tab[0];
+                cin >> tab[1];
+                cin >> tab[2];
+                cin >> tab[3];
+                cin >> tab[4];
 
-                if(a>b && a>c)
+                cout << "Podana tablica od konca " << endl;
+                printBackwards(tab, 5);
+                break;
+            }
+            //2.3 UtworzyÃ¦ metodÃª printDots(int *a, int s) wyÅ“wietlajÂ¹cÂ¹ w nowych liniach tyle kropek, ile znajduje siÃª w danym
+            //elemencie tablicy.
+            case 6:
+            {
+                int tab[]={1,2,3,4};
+                printDots(tab, 4);
+                break;
+            }
+            //2.4. UtworzyÃ¦ metodÃª int Sum(int *a, int s) liczÂ¹cÂ¹ sumÃª elementÃ³w tablicy.
+            case 7:
+            {
+                int tab[]={1,2,30,4};
+                Sum(tab, 4);
+                break;
+            }
+            //2.5. ZaimplementowaÃ¦ algorytm sortowania bÂ¹belkowego (w funkcji main(), nie ma potrzeby tworzenia dodatkowej
+            //funkcji).Algorytm powinien posortowaÃ¦ dowolnie duÂ¿Â¹ tablicÃª w kolejnoÅ“ci niemalejÂ¹cej.
+            case 8:
+            {
+                int s = 20;
+                int tab[s];
+
+                for(int i=0;i<s;i++)
                 {
-                    cout << "Liczba " << a << " jest najwieksza" << endl << endl;
+                    tab[i]=rand();
                 }
-                else if(b>a && b>c)
+
+
+                    int temp;
+                    bool x = false;
+
+                    while(x==false)
+                    {
+                        x = true;
+                        for(int i=1;i<s;i++)
+                        {
+                            if(tab[i]<tab[i-1])
+                            {
+                                x = false;
+                                temp = tab[i];
+                                tab[i] = tab[i-1];
+                                tab[i-1] = temp;
+                            }
+                        }
+                    }
+
+
+                for(int i=0;i<s;i++)
                 {
-                    cout << "Liczba " << b << " jest najwieksza" << endl << endl;
+                    cout << tab[i] << endl;
+                }
+                break;
+            }
+            //NapisaÃ¦ metodÃª int getLength(char *str) , w ktÃ³rej WÂ£ASNORECZNIE (nie wolno korzystaÃ¦ z metody strlen() )
+            //przeliczony zostanie rozmiar Â³aÃ±cucha(bez null - terminatora).Dla przykÂ³adu dla â€žHello!" wynik powinien wynosiÃ¦ 6.
+            case 9:
+            {
+                char str[]="Hello!";
+                cout << "Rozmiar stringa wynosi " << getLength(str) << endl;
+                break;
+            }
+            //3.2. NapisaÃ¦ metodÃª void Reverse (char *str) , ktÃ³ra wypisze Â³aÃ±cuch znakÃ³w od koÃ±ca (zakaz uÂ¿ywania strlen,
+            //moÂ¿na uzyÃ¦ metodÃª z zadania 3.1.)
+            case 10:
+            {
+                char str[]="Hello!";
+                Reverse(str);
+                cout << endl;
+                break;
+            }
+            //3.3.NapisaÃ¦ metodÃª bool containsDigits(char * str), ktÃ³ra zwrÃ³ci informacjÃª, czy w danym stringu znajduje siÃª
+            //jakakolwiek cyfra.Dla przykÂ³adu : â€žasdfgzxcv" -> false, â€žasdf5asdf" -> true
+            case 11:
+            {
+                char str[]="asdfasdf";
+                if(containsDigits(str))
+                {
+                    cout << "String zawiera liczby" << endl;
                 }
                 else
                 {
-                    cout << "Liczba " << c << " jest najwieksza" << endl << endl;
+                    cout << "String nie zawiera liczb" << endl;
                 }
                 break;
             }
-            /*1.6. Napisaæ prosty kalkulator. Nale¿y pobraæ od u¿ytkownika 2 liczby oraz operator (jeden z czterech: mno¿enie, dzielenie, dodawanie,
-            odejmowanie). Wymagane jest utworzenie prostego menu u¿ytkownika. Uwaga - nale¿y pamiêtaæ o u³amkach (1/3 powinno daæ 0.33, a nie 0)*/
-            case 6:
-            {
-
-                cout << "------------Kalkulator------------" << endl;
-                int a,b;
-                cout << "Podaj pierwsza liczbe ";
-                cin >> a;
-                cout << "Podaj druga liczbe ";
-                cin >> b;
-                int dzialanie;
-                cout << "Wybierz dzialanie " << endl;
-                cout << "1 - dodawanie " << endl;
-                cout << "2 - odejmowanie " << endl;
-                cout << "3 - mnozenie " << endl;
-                cout << "4 - dzielenie " << endl;
-                cin >> dzialanie;
-                switch(dzialanie)
-                {
-                    case 1:
-                    {
-                        int wynik = a+b;
-                        cout << "Wynik: " << wynik << endl;
-                        break;
-                    }
-                    case 2:
-                    {
-                        int wynik = a-b;
-                        cout << "Wynik: " << wynik << endl;
-                        break;
-                    }
-                    case 3:
-                    {
-                        int wynik = a*b;
-                        cout << "Wynik: " << wynik << endl;
-                        break;
-                    }
-                    case 4:
-                    {
-                        int wynik = a/b;
-                        cout << "Wynik: " << wynik << endl;
-                        break;
-                    }
-                }
-                break;
-            }
-            /*2.1. Zapoznaæ siê z pêtl¹ while. Pêtla ta s³u¿y do wielokrotnego wykonania fragmentu kodu przez NIEZNAN¥ Z GÓRY iloœæ razy. Pêtla
-            wykonuje siê zawsze, jeœli warunek jest prawdziwy (ewaluowany do true). Napisaæ pêtlê, w któej u¿ytkownik podaje liczbê x. Nale¿y
-            wyœwietliæ tê liczbê. Je¿eli u¿ytkownik poda 0, nale¿y zakoñczyæ program.*/
-            case 7:
-            {
-                int x;
-                do
-                {
-                    cout << "Podaj liczbe: ";
-                    cin >> x;
-                    cout << "Podales liczbe: " << x << endl;
-                }
-                while(x!=0);
-                break;
-            }
-            /*2.2. Przerobiæ kalkulator z zadania 1.6. Teraz po ka¿dym dzia³aniu program powinien spytaæ u¿ytkownika, czy ten chce powtórzyæ
-            wszystko od pocz¹tku. Jeœli tak - restartujemy kalkulator i zaczynamy od nowa. Jeœli nie - koñczymy program.*/
-            case 8:
-            {
-                int warunek = 1;
-                do
-                {
-                cout << "------------Kalkulator------------" << endl;
-                int a,b;
-                cout << "Podaj pierwsza liczbe ";
-                cin >> a;
-                cout << "Podaj druga liczbe ";
-                cin >> b;
-                int dzialanie;
-                cout << "Wybierz dzialanie " << endl;
-                cout << "1 - dodawanie " << endl;
-                cout << "2 - odejmowanie " << endl;
-                cout << "3 - mnozenie " << endl;
-                cout << "4 - dzielenie " << endl;
-                cin >> dzialanie;
-                switch(dzialanie)
-                {
-                    case 1:
-                    {
-                        int wynik = a+b;
-                        cout << "Wynik: " << wynik << endl << endl;
-                        break;
-                    }
-                    case 2:
-                    {
-                        int wynik = a-b;
-                        cout << "Wynik: " << wynik << endl << endl;
-                        break;
-                    }
-                    case 3:
-                    {
-                        int wynik = a*b;
-                        cout << "Wynik: " << wynik << endl << endl;
-                        break;
-                    }
-                    case 4:
-                    {
-                        int wynik = a/b;
-                        cout << "Wynik: " << wynik << endl << endl;
-                        break;
-                    }
-                }
-                char reset;
-                cout << "R-RESET" << "S-STOP";
-                cin >> reset;
-                if(reset=='R')
-                {
-                    warunek = 1;
-                }
-                else if(reset=='S')
-                {
-                    warunek = 0;
-                }
-                }
-                while(warunek==1);
-                break;
-            }
-            //2.3. Pobraæ od u¿ytkownika liczbê x. Nale¿y wyœwietliæ wszystkie kolejne potêgi liczby x. Zakoñczyæ program, kiedy liczba przekroczy 100 000.
-            case 9:
-            {
-                int x;
-                cout << "Podaj liczbe: ";
-                cin >> x;
-                int n = 100000;
-                int potega=1;
-                while(potega<=n)
-                {
-                    cout << potega << endl;
-                    potega=potega*x;
-                }
-                break;
-            }
-            /*2.4. Pobraæ od u¿ytkownika liczbê x. Jeœli liczba jest niedodatnia - nale¿y zakoñczyæ program. Nastêpnie nale¿y wyœwietlaæ kolejno (w
-            nowej linii) wszystkie liczby mniejsze od x, a¿ osi¹gniête zostanie 0.*/
-            case 10:
-            {
-                int x;
-                cout << "Podaj liczbe: ";
-                cin >> x;
-                if(x>0)
-                {
-                    int y=0;
-                    while(x!=y)
-                    {
-                        x--;
-                        cout << x << endl;
-
-                    }
-                }
-                break;
-            }
-            /*2.5. Zapoznaæ siê z instrukcjami continue; i break;. Pierwsza s³u¿y do zakoñczenia iteracji i przejœcia do nastêpnej, a druga natychmiast
-            koñczy pêtlê. Przerobiæ program z zadania 1.4, aby wyœwietla³ tylko parzyste liczby (u¿yæ if oraz continue). Jeœli liczba wynosi 40, nale¿y
-            wyjœæ z pêtli i zakoñczyæ program.*/
-            case 11:
-            {
-                int x;
-                cout << "Podaj liczbe: ";
-                cin >> x;
-                if(x>0)
-                {
-                    int y=0;
-                    while(x!=y)
-                    {
-                        x--;
-                        if(x%2==0)
-                        {
-                            cout << x << endl;
-
-                        }
-                        else if(x%2!=0)
-                        {
-                            continue;
-                           cout << x << endl;
-                        }
-
-                    }
-                }
-                else if(x==40)
-                {
-                    break;
-                }
-                break;
-            }
-            /*2.6. Zapoznaæ siê z pêtl¹ for. Pêtla s³u¿y do wykonania danego fragmentu kodu ZNAN¥ Z GÓRY okreœlon¹ iloœæ razy. Uwaga - ka¿d¹ pêtlê
-            for mo¿na zast¹piæ pêtl¹ while i wzajemnie. Zwyczajowo obowiazuje zasada, ¿e jeœli iloœæ iteracji jest znana - u¿ywamy for, a jeœli nie jest
-            znana (zale¿y od u¿ytkownika lub jakiegoœ stanu zewnêtrznego) - u¿ywamy pêtli while. Pêtla for sk³ada siê z: ZMIENNEJ ITERACYJNEJ,
-            czyli stanu pocz¹tkowego pêtli, np. int i = 0. Nastêpnie WARUNKU ZAKOÑCZENIA PÊTLI, np. i<10. Nastêpnie OPERACJI WYKONYWANEJ
-            PO KA¯DEJ ITERACJI - zazwyczaj jest to zwiêkszenie iteratora o 1, czyli i = i + 1, b¹dŸ w skrócie i++. Napisaæ pêtlê for, która wyœwietli cyfry
-            od 0 do 9.*/
+            //3.4. PobraÃ¦ od uÂ¿ytkownika Â³aÃ±cuch znakÃ³w (dowolna metoda). PrzekazaÃ¦ go do kaÂ¿dej z metod z 3. czÃªÅ“ci zadaÃ±.
             case 12:
             {
-                for(int i=0;i<=9;i++)
+                char str[]="";
+                cout << "Podaj lancuch znakow: ";
+                cin >> str;
+
+                cout << "Rozmiar stringa wynosi " << getLength(str) << endl;
+
+                cout << "String od tylu ";
+                Reverse(str);
+                cout << endl;
+
+                if(containsDigits(str))
                 {
-                    cout << i << endl;
+                    cout << "String zawiera liczby" << endl;
                 }
-                 break;
+                else
+                {
+                    cout << "String nie zawiera liczb" << endl;
+                }
+                break;
             }
-            /*2.7. Pobraæ od u¿ytkownika liczby x i y. Zak³adamy, ¿e y > x (zawsze, nie musimy tego sprawdzaæ). Za pomoc¹ pêtli for wypisaæ liczby
-            miêdzy x a y (do przemyœlenia - co jest stanem pocz¹tkowym, a co warunkiem zakoñczenia pêtli?)*/
+            //4.1. PobraÃ¦ od uÂ¿ytkownika liczbÃª n. ZaalokowaÃ¦ pamiÃªÃ¦ na n elementÃ³w int i pobraÃ¦ je od uÂ¿ytkownika. WykonaÃ¦ na
+            //niej metodÃª printBackwards z 2.2.
             case 13:
             {
-                int x;
-                int y;
-                cout << "Podaj x: ";
-                cin >> x;
-                cout << "Podaj y: ";
-                cin >> y;
-                for(int i=x+1;i<y;i++)
+                int * tab;
+                int n;
+                cout << "Podaj liczbe n: " << endl;
+                cin >> n;
+
+                tab=(int*)malloc(sizeof(int)*n);
+
+                for(int i=0;i<n;i++)
                 {
-                    cout << i << endl;
+                    cout << "Podaj " << i << " element tablicy" << endl;
+                    cin >> tab[i];
                 }
+
+                printBackwards(tab, n);
+                free(tab);
                 break;
             }
-            //2.8. Pobraæ od u¿ytkownika liczbê x. Za pomoc¹ pêtli for wypisaæ wszystkie liczby mniejsze od x, ale wiêksze ni¿ 0.
+            //4.2.PobraÃ¦ od uÂ¿ytkownika liczbÃª n.ZaalokowaÃ¦ pamiÃªÃ¦ na n elementÃ³w int i pobraÃ¦ je od uÂ¿ytkownika.NastÃªpnie
+            //zaalokowaÃ¦ pamiÃªÃ¦ i utworzyÃ¦ tablicÃª, w ktÃ³rej bÃªdÂ¹ tylko UJEMNE wartoÅ“ci z pierwszej tablicy.Na koniec zwolniÃ¦
+            //pamiÃªÃ¦ na obie tablice.
             case 14:
             {
-                int x;
-                cout << "Podaj x: ";
-                cin >> x;
-                for(int i=1;i<x;i++)
+                int * tab;
+                int n;
+                cout << "Podaj liczbe n: " << endl;
+                cin >> n;
+
+                tab=(int*)malloc(sizeof(int)*n);
+
+                for(int i=0;i<n;i++)
                 {
-                    cout << i << endl;
+                    cout << "Podaj " << i << " element tablicy" << endl;
+                    cin >> tab[i];
                 }
+
+                int i=0;
+                int m=0;
+                while(i<n)
+                {
+                    if(tab[i]<0)
+                    {
+                        m++;
+                    }
+                    i++;
+                }
+
+                int * tabminus;
+                tabminus=(int*)malloc(sizeof(int)*m);
+
+                for(int i=0,j=0;i<n;i++)
+                {
+                    if(tab[i]<0)
+                    {
+                        tabminus[j]=tab[i];
+                        j++;
+                    }
+                }
+
+                cout << "Tablica liczb ujemnych: " << endl;
+                for(int i=0;i<m;i++)
+                {
+                    cout << tabminus[i] << endl;
+                }
+                free(tab);
+                free(tabminus);
+
                 break;
             }
-            /*2.9. Pobraæ od u¿ytkownika liczbê x. Za pomoc¹ pêtli for wypisywaæ CO TRZECI¥ liczbê wiêksz¹ od x. Pêtla powinna siê zakoñczyæ, jeœli
-            liczba przekroczy 100. Uwaga - proszê nie u¿ywaæ operacji continue i break, a sterowaæ tylko parametrami pêtli.*/
+            //4.3. NapisaÃ¦ metodÃª bool AreArraysldentical(int * al, int sl, int * a2, int s2) zwracajÂ¹cÂ¹ informacjÃª, czy dwie tablice
+            //podane jako parametr sÂ¹ identyczne, tj.czy majÂ¹ takÂ¹ samÂ¹ dÂ³ugoÅ“Ã¦ i czy na kaÂ¿dym indeksie wystÃªpuje taki sam
+            //element.
             case 15:
             {
-                int x;
-                cout << "Podaj x: ";
-                cin >> x;
-                for(int i=x;i<=100;i=i+3)
+                int * a1;
+                int s1;
+                cout << "Podaj rozmiar tablicy a1: " << endl;
+                cin >> s1;
+
+                a1=(int*)malloc(sizeof(int)*s1);
+
+                for(int i=0;i<s1;i++)
                 {
-                    cout << i << endl;
+                    cout << "Podaj " << i << " element tablicy a1" << endl;
+                    cin >> a1[i];
                 }
+
+                int * a2;
+                int s2;
+                cout << "Podaj rozmiar tablicy a2: " << endl;
+                cin >> s2;
+
+                a2=(int*)malloc(sizeof(int)*s2);
+
+                for(int i=0;i<s2;i++)
+                {
+                    cout << "Podaj " << i << " element tablicy a2" << endl;
+                    cin >> a2[i];
+                }
+
+                AreArraysldentical(a1, s1, a2, s2);
+                free(a1);
+                free(a2);
                 break;
             }
-            //3.1. Napisaæ metodê void NewLine(). Powinna ona wypisaæ na ekran pojedyncz¹ pust¹ liniê. U¿yæ tej metodê w main().
+            //4.4. NapisaÄ‡ metodÄ™ char * reverseString(char*s), ktÃ³ra ZWRÃ“CI (a nie wypisze!) string, ktÃ³ry jest odwrÃ³conym
+            //stringiem przekazanym jako pierwszy parametr.Funkcja zaalokuje pamiÄ™Ä‡ na nowy Å‚aÅ„cuch i go zwrÃ³ci. (caÅ‚y
+            //algorytm naleÅ¼y zaimplementowaÄ‡ samodzielnie).NaleÅ¼y go nastÄ™pnie â€žprzechwyciÄ‡" w funkcji main, aby pamiÄ™Ä‡ na
+            //koniec wyczyÅ›ciÄ‡
+
+            //Po wielu prÃ³bach nie udaÅ‚o mi siÄ™ wykonaÄ‡ tego zadania.
             case 16:
             {
-                NewLine();
-                break;
-            }
-            /*3.2. Napisaæ metodê void NewLines(int count). Powinna ona wypisaæ tyle nowych linii, ile zosta³o podanych W PARAMETRZE count (nale¿y
-            u¿yæ pêtli for). U¿yæ metodê w main()*/
-            case 17:
-            {
-                int parametr;
-                cout << "Podaj parametr: ";
-                cin >> parametr;
-                NewLines(parametr);
-                break;
-            }
-            /*3.3. Napisaæ metodê void WriteBiggerNumber(int x, int y). Metoda powinna pobraæ 2 parametry i zwróciæ wiêkszy z nich. Wykorzystaæ
-            funckjê w metodzie main(). UWAGA - pobieranie liczb od u¿ytkownika powinno odbyæ siê w funkcji main(), a NIE w WriteBiggerNumber! Do
-            funkcji nale¿y jedynie przes³aæ pobrane wczeœniej parametry*/
-            case 18:
-            {
-                int parametr1;
-                int parametr2;
-                cout << "Podaj pierwszy parametr: ";
-                cin >> parametr1;
-                cout << "Podaj pierwszy parametr: ";
-                cin >> parametr2;
+                char s[100];
 
-                WriteBiggerNumber(parametr1, parametr2);
-                break;
-            }
-            /*3.4. Napisaæ metodê Multiply(int x, int y) . Metoda powinna ZWRÓCIÆ (s³owo kluczowe return) iloczyn dwóch parametrów. Uwaga! Metoda
-            NIE POWINNA wypisywaæ wyniku - powinien on byæ wyœwietlony w funkcji main!*/
-            case 19:
-            {
-                int x;
-                int y;
-                cout << "Podaj x: ";
-                cin >> x;
-                cout << "Podaj y: ";
-                cin >> y;
+                char *result = reverseString(s);
 
-                cout << "Iloczyn x * y wynosi: " << Multiply(x, y) << endl;
+
+
+                free(s);
+                free(result);
+
                 break;
             }
+            default:
+            {
+
+                cout << "Nie ma takiego zadania" << endl;
+                break;
+            }
+
         }
     }
 }
-
-
-
-
