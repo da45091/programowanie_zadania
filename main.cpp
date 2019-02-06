@@ -1,101 +1,137 @@
 #include <iostream>
-#include <cstdlib>
 #include <stdlib.h>
 #include <stdio.h>
-#include <string.h>
+
 
 using namespace std;
 
-bool IsSorted(int *tab, int s)
+struct Student
 {
-    for(int i=1;i<=s;i++)
+	int Age;
+	int Height;
+	int Semester;
+};
+
+Student* StudentCreate(int age, int height, int semester)
+{
+	Student * student;
+	student = (Student*)malloc(sizeof(Student));
+	student -> Age = 20;
+	student -> Height = 179;
+	student -> Semester = 1;
+	return student;
+}
+
+void PrintStudent(Student * s)
+{
+	cout << "Age: " << s -> Age << " Height: " << s -> Height << " Semester: " << s -> Semester << endl;
+}
+
+bool AreEqual(Student * s1, Student * s2)
+{
+	if (s1 -> Age == s2 -> Age && s1 -> Height == s2 -> Height && s1 -> Semester == s2 -> Semester)
+	{
+		return 1;
+	}
+	else
+	{
+		return 0;
+	}
+}
+
+struct Node
+{
+    int Value;
+    Node * Next;
+};
+
+Node * Create (int value)
+{
+    Node * n;
+    n = (Node*)malloc(sizeof(Node));
+    n -> Value = value;
+    n -> Next = n;
+}
+
+Node * GetTail(Node * root)
+{
+    Node * n;
+    n = root;
+    while(n -> Next != root)
     {
-        if(tab[i]>tab[i+1])
+        n = n -> Next;
+    }
+    return n;
+}
+
+void Add(Node * root, int value)
+{
+    Node * tail;
+    tail = GetTail(root);
+    tail -> Next = (Node*)malloc(sizeof(Node));
+  	Node * node_1;
+  	node_1 = tail -> Next;
+    node_1 -> Value = value;
+	node_1 -> Next = root;
+
+}
+
+void PrintList(Node * root)
+{
+	Node * n;
+	n = root;
+	if(root != NULL)
+    {
+        Node * tail;
+        tail = GetTail(root);
+        while (n!=tail)
         {
-            return 0;
+            cout << n -> Value << "->";
+            n = n -> Next;
         }
     }
-    return 1;
+    cout << n -> Value << endl;
 }
 
-void printBackwards(int *tab, int s)
+
+void RemoveNode(Node * root, int value)
 {
-    for(int i=s-1;i>=0;i--)
-    {
-        cout << tab[i] << endl;
+    Node * n;
+    n = root;
+    while (n -> Next != root)
+	{
+		if (n -> Next -> Value == value)
+		{
+			Node * temp;
+			temp = n -> Next;
+			n -> Next = temp -> Next;
+			free(temp);
+		}
+		n = n -> Next;
     }
 }
 
-void printDots(int *tab, int s)
+void FreeList(Node * root)
 {
-    for(int i=0;i<s;i++)
-    {
-        for(int x=0;x<tab[i];x++)
-        {
-            cout << ".";
-        }
-        cout << endl;
-    }
+	while(root != NULL)
+	{
+        Node * n;
+	    n =  root -> Next;
+		free(n);
+	}
 }
 
-int Sum(int *tab, int s)
+int Count(Node * root)
 {
-    int suma = 0;
-    for(int i=0;i<s;i++)
-    {
-        suma=suma+tab[i];
-    }
-    cout << "Suma elementow tablicy wynosi: " << suma << endl;
-}
-
-int getLength(char *str)
-{
-    int i=0;
-    while(str[i] != '\0')
-    {
-        i++;
-    }
-    return i;
-}
-
-void Reverse (char *str)
-{
-    for(int i=getLength(str);i>=0;i--)
-    {
-        cout << str[i];
-    }
-}
-
-bool containsDigits(char * str)
-{
-    for(int i=0;i<getLength(str);i++)
-    {
-        if(isdigit(str[i]))
-        {
-            return true;
-        }
-    }
-    return false;
-}
-
-bool AreArraysldentical(int * a1, int s1, int * a2, int s2)
-{
-    if(s1==s2)
-    {
-        for(int i=0;i<s1;i++)
-        {
-            cout << i << " element tablicy a1 jest rowny " << i << " elementowi tablicy a2" << endl;
-        }
-    }
-    else
-    {
-        cout << "Podane tablice nie sa identyczne" << endl;
-    }
-}
-
-char *reverseString(char *s)
-{
-
+	Node * n;
+	n = root;
+	int count = 1;
+	while(n -> Next != root)
+	{
+		n = n -> Next;
+		count++;
+	}
+	return count;
 }
 
 int main()
@@ -108,359 +144,189 @@ int main()
         cin >> zadanie;
         switch(zadanie)
         {
-            //1.1. Utworzyæ 5-cio elementow¹ tablicê typu int. Pobraæ od u¿ytkownika 5 elementów i dodac je do tablicy. Nastêpnie wyœwietliæ najwiêksz¹ liczbê z tablicy.
-            case 1:
+            /*Zad 1.1
+            Utworzyæ strukturê Student tak¹ jak powy¿ej.Napisaæ metody :
+            Student * Create(int age, int height, int semester) // alokuje pamiêæ i tworzy studenta o podanych parametrach.
+            WA¯NE - pamiêæ nale¿y potem zwolniæ w main() !
+            void PrintStudent(Student *s) // wypisuje wszystkich sk³adowych struktury
+            bool AreEqueal(Student* sl, Student* s2) // zwraca informacjê, czy sk³adowe s¹ takie same (Uwaga - w C int zamiast
+            bool)*/
+            case 1: /*Student * Create(int age, int height, int semester),  void PrintStudent(Student *s) */
             {
-                int tab[5];
-                cout << "Podaj 5 elementow tablicy: " << endl;
-                cin >> tab[0];
-                cin >> tab[1];
-                cin >> tab[2];
-                cin >> tab[3];
-                cin >> tab[4];
-
-                int x = tab[0];
-                for(int i=1;i<=sizeof(tab[5]);i++)
-                {
-                    if(x < tab[i])
-                    {
-                        x = tab[i];
-                    }
-                }
-                cout << "Najwieksza liczba z podanych to: " << x << endl;
+                Student * s;
+                s = StudentCreate(20, 179, 1);
+                PrintStudent(s);
+                free(s);
                 break;
             }
-            //1.2. Wyœwietliæ w pêtli tablice z zadania 1.1 od pocz¹tku i od koñca
-            case 2:
+
+            case 2: /* bool AreEqueal(Student* sl, Student* s2) */
             {
-                int tab[5];
-                cout << "Podaj 5 elementow tablicy: " << endl;
-                cin >> tab[0];
-                cin >> tab[1];
-                cin >> tab[2];
-                cin >> tab[3];
-                cin >> tab[4];
+                int age, height, semester;
+                cout << "Podaj dane pierwszego studenta: " << endl;
+                cout << "wiek " << endl;
+                cin >> age;
+                cout << "wzrost " << endl;
+                cin >> height;
+                cout << "semestr " << endl;
+                cin >> semester;
+                Student * s1;
+                s1 = StudentCreate(age, height, semester);
 
-                cout << "Podana tablica od poczatku: " << endl;
-                for(int i=0;i<=sizeof(tab[5]);i++)
-                {
-                    cout << tab[i] << endl;
-                }
+                cout << "Podaj dane drugiego studenta: " << endl;
+                cout << "wiek " << endl;
+                cin >> age;
+                cout << "wzrost " << endl;
+                cin >> height;
+                cout << "semestr " << endl;
+                cin >> semester;
+                Student * s2;
+                s2 = StudentCreate(age, height, semester);
 
-                cout << "Podana tablica od konca: " << endl;
-                for(int i=4;i<=sizeof(tab[5]);i--)
+                if(AreEqual(s1, s2))
                 {
-                    cout << tab[i] << endl;
+                    cout << "Dane sa takie same" << endl;
                 }
+                else
+                {
+                    cout << "Dane nie sa takie same" << endl;       /* Zawsze zwraca informacje o takich samych danych nawet, gdy sa one rozne. Nie rozumiem dlaczego tak sie dzieje,*/
+                }
+                free(s1);
+                free(s2);
                 break;
             }
-            //Napisaæ algorytm sprawdzajacy, czy tablica jest posortowana w kolejnoœci niemalej¹cej
+            /*Zad 1 2
+            Utworzyæ tablicê 3 studentów.Zape³niæ j¹ wartoœciami, wyœwietliæ, zwolniæ pamiêæ.Tablica powinna byæ utworzona za
+            pomoc¹ metody malloc(proszê pilnowaæ odpowiedniej iloœci gwiazdek!)*/
             case 3:
             {
-                int tab[5];
-                cout << "Podaj 5 elementow tablicy: " << endl;
-                cin >> tab[0];
-                cin >> tab[1];
-                cin >> tab[2];
-                cin >> tab[3];
-                cin >> tab[4];
-
-                int x;
-                for(int i=1;i<=sizeof(tab[5]);i++)
+                int tablica = 3;
+                Student * s_tablica;
+                s_tablica = (Student*)malloc(tablica * sizeof(Student));
+                for (int i = 0; i < tablica; i++)
                 {
-                    if(tab[i]>tab[i+1])
-                    {
-                        x=1;
-                    }
+                    cout << "Prosze wprowadzic dane studenta nr: " << i+1 << endl;
+                    cout << "wiek " << endl;
+                    cin >> s_tablica[i].Age;
+                    cout << "wzrost " << endl;
+                    cin >> s_tablica[i].Height;
+                    cout << "semestr " << endl;
+                    cin >> s_tablica[i].Semester;
                 }
-                if(x==1)
+                for (int i = 0; i < tablica; i++)
                 {
-                    cout << "Tablica nie jest niemalejaca" << endl;
+                    cout << "Dane studenta nr " << i+1 << " wiek: " << s_tablica[i].Age << " wzrost: " << s_tablica[i].Height << " semestr: " << s_tablica[i].Semester << endl;
                 }
-                else
-                {
-                     cout << "Tablica jest niemalejaca" << endl;
-                }
+                free(s_tablica);
                 break;
             }
-            //2.1. Utworzyæ osobn¹ metodê bool IsSorted(int *, int) realizuj¹c¹ zadanie 1.3 (UWAGA - w jêzyku C niedostêpny jest typ bool z wartoœciami true i false, zamiast niego nale¿y u¿yæ int i wartoœci 1 i 0)
+            /*Zad 1
+            Zaimplementować cykliczną listę jednokierunkową. */
             case 4:
             {
-                int tab[5];
-                cout << "Podaj 5 elementow tablicy: " << endl;
-                cin >> tab[0];
-                cin >> tab[1];
-                cin >> tab[2];
-                cin >> tab[3];
-                cin >> tab[4];
-
-                if(IsSorted(tab,sizeof(tab[5])))
-                {
-                    cout << "Tablica jest niemalejaca" << endl;
-                }
-                else
-                {
-                     cout << "Tablica nie jest niemalejaca" << endl;
-                }
+                Node * root;
+                root = Create(2);
+                PrintList(root); // 2
+                Add(root, 4);
+                Add(root, 8);
+                Add(root, 16);
+                PrintList(root); // 2 -> 4 -> 8 -> 16
+                Add(root, 20);
+                PrintList(root); // 2 4 8 16 20
+                printf("Ostatni wezel ma wartosc %d\n", GetTail(root)->Value); // 20
+                Add(root, 16);
+                PrintList(root); // 2 -> 4 -> 8 -> 16 -> 20 -> 16
+                printf("%d\n", Count(root)); // 6
+                RemoveNode(root, 8);
+                PrintList(root); // 2 -> 4 -> 16 -> 20 -> 16
+                RemoveNode(root, 10); // element nieistniej¹cy
+                PrintList(root); // 2 -> 4 -> 16 -> 20 -> 16
+                RemoveNode(root, 16); // usuñ wszystkie wêz³y o wartoœci 16
+                PrintList(root); // 2 -> 4 -> 20
+                printf("%d\n", Count(root)); // 3
+                FreeList(root); // zwolnienie pamiêci na wszystkie wêz³y.
+                PrintList(root); // (nic, lista niezaalokowana) Tutaj po zwolnieniu pamięci program mi się zatrzymuje i nie wykonuje sie dalej. Sądzę, że błąd leży w funkcji FreeList(), ale nie mogę go poprawić
+                return 0;
                 break;
             }
-            //2.2. Utworzyæ metodê void printBackwards(int *a, int s) s³u¿¹c¹ do wypisania tablicy OD KOÑCA
+            /*Zad 3.1
+            Wczytywać od użytkownika liczby, aż nie poda on 0. Wszystkie wczytane liczby zapisać w pliku numbers.txt */
             case 5:
             {
-                int tab[5];
-                cout << "Podaj 5 elementow tablicy: " << endl;
-                cin >> tab[0];
-                cin >> tab[1];
-                cin >> tab[2];
-                cin >> tab[3];
-                cin >> tab[4];
+                FILE *file;
+                file = fopen("numbers.txt","w");
+                int dane = 1;
+                do
+                {
+                    cout << "Podaj liczbe: ";
+                    cin >> dane;
+                    fprintf(file, "%d\t", dane);
+                }
+                while(dane!=0);
 
-                cout << "Podana tablica od konca " << endl;
-                printBackwards(tab, 5);
+                fclose(file);
                 break;
             }
-            //2.3 Utworzyæ metodê printDots(int *a, int s) wyœwietlaj¹c¹ w nowych liniach tyle kropek, ile znajduje siê w danym
-            //elemencie tablicy.
+            /*Zad 3.2
+            Wczytać z numbers.txt liczby. Utworzyć listę jednokierunkową (z zadania 2) zawierającą te liczby. Wypisać je na ekran. */
             case 6:
             {
-                int tab[]={1,2,3,4};
-                printDots(tab, 4);
+                FILE * file;
+                file = fopen("numbers.txt", "r");
+                int dane = 0;
+                fscanf(file, "%d ", &dane);
+                Node * root = Create(dane);
+                for(int i=0;(fscanf(file, "%d ", &dane))!=EOF;i++)
+                {
+                    Add(root, dane);
+                }
+                PrintList(root);
+                fclose(file);
                 break;
             }
-            //2.4. Utworzyæ metodê int Sum(int *a, int s) licz¹c¹ sumê elementów tablicy.
+            /*Zad 3.3
+            Posortować (w dowolnu sposób) listę z zadania 3.2 (już po wczytaniu pliku). Zapisać posortowaną liczbę do pliku sorted.txt. Algorytm sortowania proszę zaimplementować samodzielnie. */
             case 7:
             {
-                int tab[]={1,2,30,4};
-                Sum(tab, 4);
-                break;
-            }
-            //2.5. Zaimplementowaæ algorytm sortowania b¹belkowego (w funkcji main(), nie ma potrzeby tworzenia dodatkowej
-            //funkcji).Algorytm powinien posortowaæ dowolnie du¿¹ tablicê w kolejnoœci niemalej¹cej.
-            case 8:
-            {
-                int s = 20;
-                int tab[s];
+                FILE *file;
+                file = fopen("numbers.txt", "r");
+                FILE *sorted;
+                sorted = fopen("sorted.txt", "w");
 
-                for(int i=0;i<s;i++)
+                int table[sizeof(file)];
+                int dane;
+                int s;
+
+                for(s=0;(fscanf(file, "%d ", &dane))!=EOF;s++)
                 {
-                    tab[i]=rand();
+                    table[s]=dane;
                 }
 
+                dane=table[0];
 
-                    int temp;
-                    bool x = false;
-
-                    while(x==false)
+                for(int i=0; i<s; i++)
+                {
+                    for(int j=0; j<s-1-i; j++)
                     {
-                        x = true;
-                        for(int i=1;i<s;i++)
+                        if(table[j] > table[j+1])
                         {
-                            if(tab[i]<tab[i-1])
-                            {
-                                x = false;
-                                temp = tab[i];
-                                tab[i] = tab[i-1];
-                                tab[i-1] = temp;
-                            }
+                            int temp;
+                            temp = table[j+1];
+                            table[j+1] = table[j];
+                            table[j] = temp;
                         }
                     }
-
-
-                for(int i=0;i<s;i++)
-                {
-                    cout << tab[i] << endl;
-                }
-                break;
-            }
-            //Napisaæ metodê int getLength(char *str) , w której W£ASNORECZNIE (nie wolno korzystaæ z metody strlen() )
-            //przeliczony zostanie rozmiar ³añcucha(bez null - terminatora).Dla przyk³adu dla „Hello!" wynik powinien wynosiæ 6.
-            case 9:
-            {
-                char str[]="Hello!";
-                cout << "Rozmiar stringa wynosi " << getLength(str) << endl;
-                break;
-            }
-            //3.2. Napisaæ metodê void Reverse (char *str) , która wypisze ³añcuch znaków od koñca (zakaz u¿ywania strlen,
-            //mo¿na uzyæ metodê z zadania 3.1.)
-            case 10:
-            {
-                char str[]="Hello!";
-                Reverse(str);
-                cout << endl;
-                break;
-            }
-            //3.3.Napisaæ metodê bool containsDigits(char * str), która zwróci informacjê, czy w danym stringu znajduje siê
-            //jakakolwiek cyfra.Dla przyk³adu : „asdfgzxcv" -> false, „asdf5asdf" -> true
-            case 11:
-            {
-                char str[]="asdfasdf";
-                if(containsDigits(str))
-                {
-                    cout << "String zawiera liczby" << endl;
-                }
-                else
-                {
-                    cout << "String nie zawiera liczb" << endl;
-                }
-                break;
-            }
-            //3.4. Pobraæ od u¿ytkownika ³añcuch znaków (dowolna metoda). Przekazaæ go do ka¿dej z metod z 3. czêœci zadañ.
-            case 12:
-            {
-                char str[]="";
-                cout << "Podaj lancuch znakow: ";
-                cin >> str;
-
-                cout << "Rozmiar stringa wynosi " << getLength(str) << endl;
-
-                cout << "String od tylu ";
-                Reverse(str);
-                cout << endl;
-
-                if(containsDigits(str))
-                {
-                    cout << "String zawiera liczby" << endl;
-                }
-                else
-                {
-                    cout << "String nie zawiera liczb" << endl;
-                }
-                break;
-            }
-            //4.1. Pobraæ od u¿ytkownika liczbê n. Zaalokowaæ pamiêæ na n elementów int i pobraæ je od u¿ytkownika. Wykonaæ na
-            //niej metodê printBackwards z 2.2.
-            case 13:
-            {
-                int * tab;
-                int n;
-                cout << "Podaj liczbe n: " << endl;
-                cin >> n;
-
-                tab=(int*)malloc(sizeof(int)*n);
-
-                for(int i=0;i<n;i++)
-                {
-                    cout << "Podaj " << i << " element tablicy" << endl;
-                    cin >> tab[i];
                 }
 
-                printBackwards(tab, n);
-                free(tab);
-                break;
-            }
-            //4.2.Pobraæ od u¿ytkownika liczbê n.Zaalokowaæ pamiêæ na n elementów int i pobraæ je od u¿ytkownika.Nastêpnie
-            //zaalokowaæ pamiêæ i utworzyæ tablicê, w której bêd¹ tylko UJEMNE wartoœci z pierwszej tablicy.Na koniec zwolniæ
-            //pamiêæ na obie tablice.
-            case 14:
-            {
-                int * tab;
-                int n;
-                cout << "Podaj liczbe n: " << endl;
-                cin >> n;
-
-                tab=(int*)malloc(sizeof(int)*n);
-
-                for(int i=0;i<n;i++)
+                for(int i=0; i<s; i++)
                 {
-                    cout << "Podaj " << i << " element tablicy" << endl;
-                    cin >> tab[i];
+                    fprintf(sorted, "%d\t", table[i]);
                 }
-
-                int i=0;
-                int m=0;
-                while(i<n)
-                {
-                    if(tab[i]<0)
-                    {
-                        m++;
-                    }
-                    i++;
-                }
-
-                int * tabminus;
-                tabminus=(int*)malloc(sizeof(int)*m);
-
-                for(int i=0,j=0;i<n;i++)
-                {
-                    if(tab[i]<0)
-                    {
-                        tabminus[j]=tab[i];
-                        j++;
-                    }
-                }
-
-                cout << "Tablica liczb ujemnych: " << endl;
-                for(int i=0;i<m;i++)
-                {
-                    cout << tabminus[i] << endl;
-                }
-                free(tab);
-                free(tabminus);
+                fclose(file);
+                fclose(sorted);
 
                 break;
             }
-            //4.3. Napisaæ metodê bool AreArraysldentical(int * al, int sl, int * a2, int s2) zwracaj¹c¹ informacjê, czy dwie tablice
-            //podane jako parametr s¹ identyczne, tj.czy maj¹ tak¹ sam¹ d³ugoœæ i czy na ka¿dym indeksie wystêpuje taki sam
-            //element.
-            case 15:
-            {
-                int * a1;
-                int s1;
-                cout << "Podaj rozmiar tablicy a1: " << endl;
-                cin >> s1;
-
-                a1=(int*)malloc(sizeof(int)*s1);
-
-                for(int i=0;i<s1;i++)
-                {
-                    cout << "Podaj " << i << " element tablicy a1" << endl;
-                    cin >> a1[i];
-                }
-
-                int * a2;
-                int s2;
-                cout << "Podaj rozmiar tablicy a2: " << endl;
-                cin >> s2;
-
-                a2=(int*)malloc(sizeof(int)*s2);
-
-                for(int i=0;i<s2;i++)
-                {
-                    cout << "Podaj " << i << " element tablicy a2" << endl;
-                    cin >> a2[i];
-                }
-
-                AreArraysldentical(a1, s1, a2, s2);
-                free(a1);
-                free(a2);
-                break;
-            }
-            //4.4. Napisać metodę char * reverseString(char*s), która ZWRÓCI (a nie wypisze!) string, który jest odwróconym
-            //stringiem przekazanym jako pierwszy parametr.Funkcja zaalokuje pamięć na nowy łańcuch i go zwróci. (cały
-            //algorytm należy zaimplementować samodzielnie).Należy go następnie „przechwycić" w funkcji main, aby pamięć na
-            //koniec wyczyścić
-
-            //Po wielu próbach nie udało mi się wykonać tego zadania.
-            case 16:
-            {
-                char s[100];
-
-                char *result = reverseString(s);
-
-
-
-                free(s);
-                free(result);
-
-                break;
-            }
-            default:
-            {
-
-                cout << "Nie ma takiego zadania" << endl;
-                break;
-            }
-
         }
     }
 }
