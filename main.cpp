@@ -12,13 +12,13 @@ struct Student
 	int Semester;
 };
 
-Student* StudentCreate(int age, int height, int semester)
+Student * StudentCreate(int age, int height, int semester)
 {
 	Student * student;
 	student = (Student*)malloc(sizeof(Student));
-	student -> Age = 20;
-	student -> Height = 179;
-	student -> Semester = 1;
+	student -> Age = age;
+	student -> Height = height;
+	student -> Semester = semester;
 	return student;
 }
 
@@ -145,13 +145,14 @@ int main()
         switch(zadanie)
         {
             /*Zad 1.1
-            Utworzyæ strukturê Student tak¹ jak powy¿ej.Napisaæ metody :
-            Student * Create(int age, int height, int semester) // alokuje pamiêæ i tworzy studenta o podanych parametrach.
-            WA¯NE - pamiêæ nale¿y potem zwolniæ w main() !
-            void PrintStudent(Student *s) // wypisuje wszystkich sk³adowych struktury
-            bool AreEqueal(Student* sl, Student* s2) // zwraca informacjê, czy sk³adowe s¹ takie same (Uwaga - w C int zamiast
+            Utworzyć strukturę Student taką jak powyżej.Napisaæ metody :
+            Student * Create(int age, int height, int semester)  alokuje pamięć i tworzy studenta o podanych parametrach.
+            WAŻNE - pamięć należy potem zwolnić w main() !
+            void PrintStudent(Student *s)  wypisuje wszystkich składowych struktury
+            bool AreEqueal(Student* sl, Student* s2)  zwraca informację, czy składowe są takie same (Uwaga - w C int zamiast
             bool)*/
-            case 1: /*Student * Create(int age, int height, int semester),  void PrintStudent(Student *s) */
+            case 1: /*Student * Create(int age, int height, int semester), alokuje pamięć i tworzy studenta o podanych parametrach.
+            WAŻNE - pamięć należy potem zwolnić w main() ! void PrintStudent(Student *s) wypisuje wszystkich składowych struktury */
             {
                 Student * s;
                 s = StudentCreate(20, 179, 1);
@@ -160,9 +161,11 @@ int main()
                 break;
             }
 
-            case 2: /* bool AreEqueal(Student* sl, Student* s2) */
+            case 2: /* bool AreEqueal(Student* sl, Student* s2) zwraca informację, czy składowe są takie same (Uwaga - w C int zamiast
+            bool) */
             {
                 int age, height, semester;
+
                 cout << "Podaj dane pierwszego studenta: " << endl;
                 cout << "wiek " << endl;
                 cin >> age;
@@ -183,21 +186,23 @@ int main()
                 Student * s2;
                 s2 = StudentCreate(age, height, semester);
 
+
                 if(AreEqual(s1, s2))
                 {
-                    cout << "Dane sa takie same" << endl;
+                    cout << "Dane studentow sa takie same" << endl;
                 }
                 else
                 {
-                    cout << "Dane nie sa takie same" << endl;       /* Zawsze zwraca informacje o takich samych danych nawet, gdy sa one rozne. Nie rozumiem dlaczego tak sie dzieje,*/
+                    cout << "Dane studentow sa rozne" << endl;
                 }
+
                 free(s1);
                 free(s2);
                 break;
             }
             /*Zad 1 2
-            Utworzyæ tablicê 3 studentów.Zape³niæ j¹ wartoœciami, wyœwietliæ, zwolniæ pamiêæ.Tablica powinna byæ utworzona za
-            pomoc¹ metody malloc(proszê pilnowaæ odpowiedniej iloœci gwiazdek!)*/
+            Utworzyć tablicę 3 studentów.Zapełnić je wartościami, wyświetlić, zwolnić pamięć.Tablica powinna być utworzona za
+            pomocą metody malloc(proszę pilnować odpowiedniej ilości gwiazdek!)*/
             case 3:
             {
                 int tablica = 3;
