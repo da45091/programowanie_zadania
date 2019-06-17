@@ -1,0 +1,7 @@
+﻿  pch.cpp
+  Item.cpp
+  Room.cpp
+  Zadanie5.cpp
+c:\users\admin\source\repos\zad_5\zadanie5\zadanie5.cpp(138): warning C4244: "argument": konwersja z "time_t" do "unsigned int", możliwa utrata danych
+  Generowanie kodu...
+  Zadanie5.vcxproj -> C:\Users\Admin\source\repos\Zad_5\x64\Debug\Zadanie5.exe
