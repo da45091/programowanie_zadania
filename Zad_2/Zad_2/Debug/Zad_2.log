@@ -1,0 +1,6 @@
+﻿  Zad_2.cpp
+c:\users\admin\source\repos\zad_2\zad_2\zad_2.cpp(81): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
+c:\users\admin\source\repos\zad_2\zad_2\zad_2.cpp(106): warning C4244: "inicjowanie": konwersja z "double" do "int", możliwa utrata danych
+c:\users\admin\source\repos\zad_2\zad_2\zad_2.cpp(153): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
+c:\users\admin\source\repos\zad_2\zad_2\zad_2.cpp(178): warning C4244: "inicjowanie": konwersja z "double" do "int", możliwa utrata danych
+  Zad_2.vcxproj -> C:\Users\Admin\source\repos\Zad_2\Debug\Zad_2.exe
