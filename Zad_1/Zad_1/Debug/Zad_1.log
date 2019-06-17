@@ -1,0 +1,4 @@
+﻿  Zad_1.cpp
+c:\users\admin\source\repos\zad_1\zad_1\zad_1.cpp(65): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
+c:\users\admin\source\repos\zad_1\zad_1\zad_1.cpp(90): warning C4244: "inicjowanie": konwersja z "double" do "int", możliwa utrata danych
+  Zad_1.vcxproj -> C:\Users\Admin\source\repos\Zad_1\Debug\Zad_1.exe
