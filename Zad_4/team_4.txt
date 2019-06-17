@@ -1,0 +1,5 @@
+Tomasz;Jedynkowy;191;zaleta1;wada1
+Adam;Dwojkowy;192;zaleta2;wada2
+Janusz;Trojkowy;193;zaleta3;wada3
+Dariusz;Czworkowy;194;zaleta4;wada4
+Jeremiasz;Piatkowy;195;zaleta5;wada5
